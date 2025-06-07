@@ -66,7 +66,7 @@ void handleLine(int client_fd, const string& line) {
         double area;
         {
             std::lock_guard<std::mutex> lock(pointsMutex);
-            std::this_thread::sleep_for(std::chrono::seconds(2));
+            //std::this_thread::sleep_for(std::chrono::seconds(2)); test the mutex
 
             vector<Point> hull = ConvexHull(points);
             area = polygonArea(hull);
@@ -79,7 +79,7 @@ void handleLine(int client_fd, const string& line) {
         
         parsePoint(line.substr(9), x, y);
         std::lock_guard<std::mutex> lock(pointsMutex);
-        std::this_thread::sleep_for(std::chrono::seconds(2));
+        //std::this_thread::sleep_for(std::chrono::seconds(2)); test the mutex
 
         points.push_back({x, y});
     }
