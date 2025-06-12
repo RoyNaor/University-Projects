@@ -12,7 +12,7 @@ namespace GraphAlgo {
 // Constructor: store reference to input graph
 GraphAlgorithms::GraphAlgorithms(const Graph& g) : graph(g) {}
 
-void GraphAlgorithms::dfsUtil(int v, std::vector<bool>& visited) const {
+void GraphAlgorithms::dfsUtil(int v, vector<bool>& visited) const {
     visited[v] = true;
 
     // Visit all neighbors
@@ -31,7 +31,7 @@ bool GraphAlgorithms::isEulerian() const {
     }
 
     // Connectivity check (ignore isolated vertices)
-    std::vector<bool> visited(graph.getVertexCount(), false);
+    vector<bool> visited(graph.getVertexCount(), false);
     int start = -1;
 
     // Find any vertex with degree > 0 to start DFS
@@ -57,24 +57,24 @@ bool GraphAlgorithms::isEulerian() const {
     return true;
 }
 
-std::vector<int> GraphAlgorithms::findEulerianCircuit() const {
-    std::vector<int> circuit;
+vector<int> GraphAlgorithms::findEulerianCircuit() const {
+    vector<int> circuit;
 
     // First check if the graph is Eulerian
     if (!isEulerian()) {
-        std::cout << "Eulerian circuit does not exist.\n";
+        cout << "Eulerian circuit does not exist.\n";
         return circuit;
     }
 
     // Create a copy of adjacency list to modify
-    std::vector<std::multiset<int>> tempAdj(graph.getVertexCount());
+    vector<multiset<int>> tempAdj(graph.getVertexCount());
     for (int u = 0; u < graph.getVertexCount(); ++u) {
         for (const Edge& e : graph.getNeighbors(u)) {
             tempAdj[u].insert(e.dst);
         }
     }
 
-    std::stack<int> stack;
+    stack<int> stack;
     stack.push(0);  // Start from any vertex
 
     while (!stack.empty()) {
@@ -90,7 +90,7 @@ std::vector<int> GraphAlgorithms::findEulerianCircuit() const {
         }
     }
 
-    std::reverse(circuit.begin(), circuit.end());
+    reverse(circuit.begin(), circuit.end());
     return circuit;
 }
 
